@@ -1,0 +1,42 @@
+plugins {
+    id 'java'
+    id 'idea'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+}
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.apache.commons:commons-lang3:3.10'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.+'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+idea {
+    project {
+        languageLevel = sourceCompatibility
+    }
+    module {
+        downloadSources = true
+        downloadJavadoc = true
+    }
+}
+
+shadowJar {
+    archiveBaseName.set('utils')
+    archiveVersion.set('1.3.5')
+    archiveClassifier.set('')
+    manifest {
+        attributes("Implementation-Title": "Utils",
+                "Implementation-Version": archiveVersion)
+    }
+}
